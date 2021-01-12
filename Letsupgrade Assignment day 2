@@ -1,0 +1,63 @@
+1.
+#include<stdio.h>
+ int main()
+ {
+     int i,j,n=4;
+     for(i=1;i<=n;i++)
+     {
+         for(j=1;j<=i;j++)
+         {
+             if(j<i)
+             printf("%d*",i);
+             else
+             printf("%d",i);
+         }
+         printf("\n");
+     }
+     return 0;
+}
+
+
+OUTPUT:
+1
+2*2
+3*3*3
+4*4*4*4
+-----------------------------------------------------------------------------------------------------------------------------------
+2.
+#include<stdio.h>
+int main()
+{
+     int i,j,n=5;
+     for(i=1;i<=n;i++)
+     {
+         for(j=0;j<i;j++)
+         {
+            if((i+j)%2==0)
+            printf("0");
+             else
+             printf("1");
+         }
+     
+         printf("\n");
+     }
+     
+     return 0;
+}
+
+
+OUTPUT:
+1
+01
+101
+0101
+10101
+
+-------------------------------------------------------------------------------------------------------------------------------------
+3. Write the similarity and difference between an array name and a pointer variable.
+ANSWER:
+Arrays and pointers are synonymous in terms of how they use to access memory. 
+But, the important difference between them is that, a pointer variable can take 
+different addresses as value whereas, in case of array it is fixed. 
+In C , name of the array always points to the first element of an array.
+
