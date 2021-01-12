@@ -1,0 +1,258 @@
+1.
+Write a function “insert_any()” for inserting a node at any given position of the linked list. Assume
+position starts at 0.
+
+CODE:
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+};
+struct node *head=NULL;
+void insert_any(int data,int pos)
+{
+    struct node *new_node= (struct node*)malloc(sizeof(struct node));
+    new_node->data=data;
+    new_node->next=NULL;
+    //head=new_node;
+    if(pos==1)
+    {
+        new_node->next=head;
+        head=new_node;
+        return;
+    }
+    struct node *temp=head;
+    for(int i=0;i<pos-2;i++)
+    {
+        temp=temp->next;
+    }
+    new_node->next=temp->next;
+    temp->next=new_node;
+}
+void display()
+{
+  
+    struct node *temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+}
+int main()
+{
+    //head=NULL;
+    insert_any(3,1);
+    insert_any(1,2);
+    insert_any(7,1);
+    insert_any(2,4);
+    insert_any(9,3);
+    printf("LINKED LIST IS: ");
+    display();
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+2.
+Write a function “delete_beg()” for deleting a node from the beginning of the linked list.
+
+CODE:
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head=NULL;
+void insert(int value)
+{
+    struct node *newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=value;
+    
+    if(head==NULL)
+    {
+        newnode->next=NULL;
+        head=newnode;
+    }
+    else
+    {
+        newnode->next=head;
+        head=newnode;
+    }
+}
+void delete_beg()
+{
+    if(head==NULL)
+    return;
+    else
+    {
+        struct node *temp=head;
+        if(head->next==NULL)
+        {
+            head=NULL;
+            free(temp);
+        }
+        else
+        {
+            head=temp->next;
+            free(temp);
+        }
+    }
+}
+void display()
+{
+    struct node *temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+}
+int main()
+{
+    insert(1);
+    insert(2);
+    insert(3);
+    insert(4);
+    insert(5);
+    insert(6);
+    delete_beg();
+    display();
+    return 0;
+}
+-------------------------------------------------------------------------------------------------------------------
+3.
+Write a function “delete_end()” for deleting a node from the end of the linked list.
+
+CODE:
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head=NULL;
+void insert(int value)
+{
+    struct node *newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=value;
+    
+    if(head==NULL)
+    {
+        newnode->next=NULL;
+        head=newnode;
+    }
+    else
+    {
+        newnode->next=head;
+        head=newnode;
+    }
+}
+void delete_end()
+{
+    if(head==NULL)
+    return;
+    else
+    {
+        struct node *temp1=head,*temp2;
+        if(head->next==NULL)
+        head=NULL;
+        else
+        {
+            while(temp1->next!=NULL)
+            {
+                temp2=temp1;
+                temp1=temp1->next;
+            }
+        temp2->next=NULL;
+        }
+        free(temp1);
+        
+    }
+    
+}
+void display()
+{
+    struct node *temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+}
+int main()
+{
+    insert(1);
+    insert(2);
+    insert(3);
+    insert(4);
+    insert(5);
+    insert(6);
+    delete_end();
+    display();
+    return 0;
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+4.
+In the Binary Search algorithm, it is suggested to calculate the mid as beg + (end - beg) / 2
+instead of (beg + end) / 2. Why is it so?
+ANSWER:
+
+In the Binary Search algorithm, it is suggested to calculate the mid as beg + (end - beg)/2 instead of (beg + end)/2. 
+Because when we use (beg + end)/2 there is problem with this approach, what if value of start or end or both is INT_MAX, it will cause integer overflow.
+That's the reason we use beg + (end- beg)/2 instead of (beg + end) / 2.
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+5.
+Write the algorithm/function for Ternary Search.
+
+CODE:
+
+#include <stdio.h>
+int ternarySearch(int l, int r, int key, int ar[])
+{
+	if (r >= l) 
+	    {
+		int mid1 = l + (r - l) / 3;
+		int mid2 = r - (r - l) / 3;
+		if (ar[mid1] == key) {
+			return mid1;
+		}
+		if (ar[mid2] == key) {
+			return mid2;
+		}
+		if (key < ar[mid1]) {
+			return ternarySearch(l, mid1 - 1, key, ar);
+		}
+		else if (key > ar[mid2]) {
+			return ternarySearch(mid2 + 1, r, key, ar);
+		}
+		else {
+			return ternarySearch(mid1 + 1, mid2 - 1, key, ar);
+		}
+	}
+	return -1;
+}
+
+int main()
+{
+	int l, r, p, key;
+	int ar[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	l = 0;
+	r =9;
+	printf("Enter the value you want to search:");
+	scanf("%d",&key);
+	p = ternarySearch(l, r, key, ar);
+	printf("Index of %d is %d\n", key, p);
+	return 0;
+}
